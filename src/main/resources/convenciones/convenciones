@@ -1,0 +1,78 @@
+--------------------- 
+Convenciones | 07-08-2017
+---------------------
+
+1- Estructura de Paquetes MVC
+
+  py.system.business.clientes.cliente
+  								- controller
+  								- domain
+  								- services
+  								- test
+
+2 - El controlador no puede extender ninguna clase
+
+3 - En el controlador no se puede hacer ningun calculo, conversion, serializacion/deserializacion
+de datos,  todo esto tirar al service.
+
+4- Agregar COMENTARIOS a cada codigo/metodo Java (En español)
+
+5- Escribir todo en español, (nombre de variables y metodos y funciones)
+
+6 - Nombre de archivos JS con separador guion bajo, no camelcase (Ej. nombre_archivo.js)
+
+X- Aquí agregar mas convenciones de codigo(?)
+
+
+
+
+
+
+
+Fuente: https://joko.miraheze.org/wiki/Code_Conventions
+
+
+# API REST
+--------------------------------------------
+1. Todos los datos se envian y reciben en formato JSON
+2. Valores vacios se representan como "null"
+3. Las fechas-horas están en formato ISO 8601: YYYY-MM-DDTHH:MM:SSZ
+4. Palabras o recursos compuestos se separan con "-": spinal-case
+
+ Ejemplo de APIS
+---------------
+GET /clients/1
+POST /clients
+PATCH /accounts/1
+PUT /orders/1
+DELETE /addresses/1
+
+Codigos HTTP
+---------------
+
+2xx: La operación fue exitosa. 200 Exito, 201 creado exitosamente
+4xx: La operación no fue exitosa. La responsabilidad es de quien invocó.
+5xx: Un fallo en la operación. La responsabilidad es del servidor.
+
+Codigos de Error
+-------------------
+
+401 Unauthorized : El usuario no está autenticado. El servidor no reconoce las credenciales que se utilizaron.
+403 Forbidden : El usuario no posee privilegios para realizar la invocación
+404 Not Found : No se encuentra el recurso solicitado.
+409 Conflict : Hubo un error de datos o alguna restricción.
+
+Para los mensajes de error, se debe siempre retornar un payload con información que pueda ayudar al developer y 
+también al soporte técnico a diagnosticarlo.Ej:
+
+HTTP/1.1 401 Unauthorized
+{
+    "code": "user.unauthorized",
+    "status": "Unauthorized",
+    "message": "No access token provided.",
+    "description": "Más información acerca del error si es que amerita."
+    "request_id": "594600f4-7eec-47ca-8012-02e7b89859ce"
+}
+
+
+Fuente:	https://joko.miraheze.org/wiki/Guia_de_API_REST

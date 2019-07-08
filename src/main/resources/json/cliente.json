@@ -1,0 +1,37 @@
+{
+	"idcliente": 1,
+	"nombreapellido": "JAIME FERREIRA",
+	"nrodoc": "1727783",
+	"sexo": "M",
+	"fecnacimiento": "1971-07-03",
+	"lugarnacimiento": "CAACUPÉ",
+	"nacionalidad": "PARAGUAYA",
+	"direccion": "PASANDO LA ESC DE YTUMI A LA IZQ",
+	"telefono": "0986-897903",
+	"lineacredito": 10000000,
+	"estado": true,
+	"estadocivil": "SO",
+	"correo": "mcespedeso@gmail.com",
+	"web": "www.ideasweb.com.py",
+	"plancuenta": {
+		"idplancuenta": 57
+	},
+	"tipodocumento": {
+		"codtipodoc": "CI"
+	},
+	"barrio": {
+		"idbarrio": 471
+	},
+	"distrito": {
+		"iddistrito": 27
+	},
+	"departamento": {
+		"iddepartamento": 4
+	},
+	"empresa": {
+		"idempresa": 1
+	},
+	"sucursal": {
+		"idsucursal": 1
+	}
+}

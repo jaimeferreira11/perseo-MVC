@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Perseo | Usuarios</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <link href="css/plugins/fullcalendar/fullcalendar.css" rel="stylesheet"/>
+    <link href="css/plugins/fullcalendar/fullcalendar.print.css" rel='stylesheet' media='print'/>
+    <link href="css/animate.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    <link rel="shortcut icon" href="img/favicon.png"/>
+    <link rel="stylesheet" href="js/plugins/alertify/css/alertify.css"/>
+    <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet"/>
+    <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet"/>
+    <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet"/>
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet"/>
+    <link href="css/plugins/select2/select2.min.css" rel="stylesheet"/>
+    <link href="css/plugins/chosen/bootstrap-chosen.css" rel="stylesheet"/>
+    <link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet"/>
+    <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet"/>
+    <style type="text/css">
+        /* Ocultar a partir de la columna 4 de la tabla, se muestran solo 3 columnas*/
+		#tabla td:nth-child(n+7) {
+			display: none; 
+		}
+
+
+
+
+
+
+
+    </style>
+</head>
+
+<body>
+<div id="wrapper">
+    <!-- PANEL LATERAL DERECHO-->
+    <div th:replace="fragments/aside :: aside">&nbsp;</div>
+
+    <div id="page-wrapper" class="gray-bg">
+        <!-- BARRA SUPERIOR  -->
+        <div th:replace="fragments/header :: header">&nbsp;</div>
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-sm-4">
+                <h2>Usuarios</h2>
+                <ol class="breadcrumb">
+                    <li><a href="home">Inicio</a></li>
+                    <li class="active"><strong>Mantenimiento de Usuarios</strong></li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <!-- El codigo va desde aqui -->
+            <div class="row">
+                <div class="col-md-6 col-md-offset-4">
+                    <button type="button" class="btn btn-w-m btn-outline btn-primary" id="nuevo" onclick="nuevo()">
+                        <i class="fa fa-plus"></i> Nuevo
+                    </button>
+                    <button type="button" class="btn btn-w-m btn-outline btn-success" id="grabar" onclick="grabar()"
+                            disabled="disabled"><i class="fa fa-check"></i> Grabar
+                    </button>
+                    <button type="button" class="btn btn-w-m btn-outline btn-danger" id="cancelar" onclick="cancelar()">
+                        <i class="fa fa-refresh"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5 class="text-navy">ABM</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-lg-6">
+                                        <label class="">ID Usuario</label>
+                                        <input type="text" placeholder="ID del usuario" id="idusuario" value="0"
+                                               class="form-control" disabled="disabled"/>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label class="">Activo</label>
+                                        <div class="i-checks">
+                                            <label>
+                                                <input class="campoHabilitable" type="checkbox"
+                                                       disabled="disabled" id="matriz" checked="checked"/><i></i>
+                                                &nbsp;SI
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <label>Login</label>
+                                        <input type="text" id="usuario" placeholder="login del usuario"
+                                               class="campoHabilitable form-control" disabled="disabled"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <label>Nombre y Apellido</label>
+                                        <input type="text" id="nombre" placeholder="Nombre y Apellido del usuario"
+                                               class="campoHabilitable form-control" disabled="disabled"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <label class="">Tipo de Empleado</label>
+                                        <select data-placeholder="Seleccione" id="selectClase"
+                                                class="chosen-select campoHabilitable"
+                                                tabindex="2" disabled="disabled">
+                                            <option selected="selected" disabled="disabled">Seleccione</option>
+                                            <th:block th:each="listValue : ${claseempleado}">
+                                                <option th:value="${listValue.idclaseempleado}"
+                                                        th:text="${listValue.descripcion}"></option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <label>Cargo</label>
+                                        <input type="text" id="cargo" placeholder="Cargo del Empleado"
+                                               class="campoHabilitable form-control" disabled="disabled"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <label class="">Sucursal</label>
+                                        <select data-placeholder="Seleccione" id="selectSucursal" class="chosen-select"
+                                                tabindex="2" disabled="disabled">
+                                            <option selected="selected" disabled="disabled">Seleccione</option>
+                                            <th:block th:each="listValue : ${sucursales}">
+                                                <option th:value="${listValue.idsucursal}"
+                                                        th:text="${listValue.nombre}"></option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <label>Depósito</label>
+                                        <select data-placeholder="Seleccione" id="selectDeposito" class="chosen-select"
+                                                disabled="disabled" tabindex="2">
+                                            <option selected="selected" value="0" disabled="disabled">Seleccione
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <label class="">Perfiles</label>
+                                        <select data-placeholder="Seleccione" id="selectPerfil" class="chosen-select"
+                                                tabindex="2" disabled="disabled" multiple="">
+
+                                            <th:block th:each="listValue : ${perfiles}">
+                                                <option th:value="${listValue.idperfil}"
+                                                        th:text="${listValue.descripcion}"></option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5 class="text-navy"> Lista de Usuarios</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="table-responsive">
+                                <table class="table table-bordered " id="tabla">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Login</th>
+                                        <th style="min-width: 120px;">Nombre y Apellido</th>
+                                        <th>Cargo</th>
+                                        <th>Sucursal</th>
+                                        <th>Estado</th>
+                                        <td>idclase</td>
+                                        <td>idsucursal</td>
+                                        <td>perfiles</td>
+                                        <td>deposito</td>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Login</th>
+                                        <th style="min-width: 120px;">Nombre y Apellido</th>
+                                        <th>Cargo</th>
+                                        <th>Sucursal</th>
+                                        <th>Estado</th>
+                                        <td>idclase</td>
+                                        <td>idsucursal</td>
+                                        <td>perfiles</td>
+                                        <td>deposito</td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- El codigo termina aqui -->
+        </div>
+        <!-- FOOTER -->
+        <div th:replace="fragments/footer :: footer">&nbsp;</div>
+    </div>
+</div>
+
+<!-- Mainly scripts -->
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="js/inspinia.js"></script>
+<script src="js/plugins/pace/pace.min.js"></script>
+<!--Plugins  -->
+<script src="js/plugins/blockUI/jquery.blockUI.js"></script>
+<script src="js/plugins/alertify/alertify.min.js"></script>
+<script src="js/plugins/sjcl/sjcl.js"></script>
+<script src="js/plugins/sweetalert/sweetalert.min.js"></script>
+<script src="js/plugins/dataTables/datatables.min.js"></script>
+<script src="js/plugins/iCheck/icheck.min.js"></script>
+<script src="js/plugins/select2/select2.full.min.js"></script>
+<script src="js/plugins/chosen/chosen.jquery.js"></script>
+<script src="js/plugins/alertify/alertify.min.js"></script>
+<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<!-- Archivos js  -->
+<script src="js/pages/commons.js"></script>
+<script src="js/pages/comun/usuario/mant_usuarios.js"></script>
+</body>
+</html>

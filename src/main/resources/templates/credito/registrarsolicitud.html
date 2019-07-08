@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Perseo | Registro de Solicitud</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <link href="css/plugins/fullcalendar/fullcalendar.css" rel="stylesheet"/>
+    <link href="css/plugins/fullcalendar/fullcalendar.print.css" rel='stylesheet' media='print'/>
+    <link href="css/animate.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    <link rel="shortcut icon" href="img/favicon.png"/>
+    <link rel="stylesheet" href="js/plugins/alertify/css/alertify.css"/>
+    <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet"/>
+    <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet"/>
+    <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet"/>
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet"/>
+    <link href="css/plugins/select2/select2.min.css" rel="stylesheet"/>
+    <link href="css/plugins/chosen/bootstrap-chosen.css" rel="stylesheet"/>
+    <link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet"/>
+    <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet"/>
+</head>
+<body>
+<div id="wrapper">
+    <!-- PANEL LATERAL DERECHO-->
+    <div th:replace="fragments/aside :: aside">&nbsp;</div>
+    <div id="page-wrapper" class="gray-bg">
+        <!-- BARRA SUPERIOR  -->
+        <div th:replace="fragments/header :: header">&nbsp;</div>
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-sm-4">
+                <h2>Registro de Solicitud</h2>
+                <ol class="breadcrumb">
+                    <li><a href="home">Inicio</a></li>
+                    <li class="active"><strong>Registro de Solicitud</strong></li>
+                </ol>
+            </div>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <!-- El codigo va desde aqui -->
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <button type="button" class="btn btn-w-m btn-outline btn-success" id="grabar" onclick="grabar()"><i
+                            class="fa fa-check"></i> Grabar
+                    </button>
+                    &nbsp;
+                    <button type="button" class="btn btn-w-m btn-outline btn-primary" id="addCliente"
+                            onclick="addCliente()"><i class="fa fa-plus"></i> Agregar Cliente
+                    </button>
+                    &nbsp;
+                    <button type="button" class="btn btn-w-m btn-outline btn-success" id="imprmir" onclick="imprimir()">
+                        Imprimir
+                    </button>
+                    &nbsp;
+                    <button type="button" class="btn btn-w-m btn-outline btn-danger" id="cancelar" onclick="cancelar()">
+                        <i class="fa fa-refresh"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5 class="text-navy">Datos de la Solicitud</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-lg-2">
+                                        <label class="">Nro. Solicitud</label>
+                                        <input type="text" placeholder="Número" id="idsolicitud" value="0"
+                                               class="form-control" disabled="disabled"/>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label>Estado</label><br></br>
+                                        <span class="label label-danger pull-center">Pendiente</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Fecha</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" id="fecha" placeholder="dd/mm/aaaa"
+                                               class="form-control campoHabilitable"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Cliente</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" id="tipo" class="form-control campoHabilitable"
+                                               placeholder="Tipo"/>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input type="text" id="nrodocumento" class="form-control campoHabilitable"
+                                               placeholder="Número de Documento"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-8">
+                                        <input type="text" id="nombre" class="form-control campoHabilitable"
+                                               placeholder="Nombre y Apellido"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Cred.
+                                        Pendiente</label>
+                                    <div class="col-lg-4">
+                                        <input type="text" id="montopendiente" class="form-control campoHabilitable"
+                                               placeholder="Monto"/>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <input type="text" id="monedapendiente" class="form-control campoHabilitable"
+                                               placeholder="Gs"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Oficial de
+                                        Cred.</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" id="oficialcodigo" class="form-control campoHabilitable"
+                                               placeholder="Cod"/>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input type="text" id="oficialnombre" class="form-control campoHabilitable"
+                                               placeholder="Nombre y Apellido"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Garantía</label>
+                                    <div class="col-lg-4">
+                                        <select data-placeholder="Seleccione" id="selectGarantia" class="chosen-select"
+                                                tabindex="2">
+                                            <option selected="selected" value="1">Garantia 1</option>
+                                            <option value="2">Garantia 2</option>
+                                            <option value="3">Garantia 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Destino</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" id="destinocodigo" class="form-control campoHabilitable"
+                                               placeholder="Cod"/>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input type="text" id="destinonombre" class="form-control campoHabilitable"
+                                               placeholder="Descripción"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Fondo</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" id="fondocodigo" class="form-control campoHabilitable"
+                                               placeholder="Cod"/>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input type="text" id="fondonombre" class="form-control campoHabilitable"
+                                               placeholder="Descripción"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Actividad</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" id="actividadcodigo" class="form-control campoHabilitable"
+                                               placeholder="Cod"/>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input type="text" id="actividadnombre" class="form-control campoHabilitable"
+                                               placeholder="Descripción"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Producto</label>
+                                    <div class="col-lg-4">
+                                        <select data-placeholder="Seleccione" id="selectProducto" class="chosen-select"
+                                                tabindex="2">
+                                            <option selected="selected" value="1">Producto 1</option>
+                                            <option value="2">Producto 2</option>
+                                            <option value="3">Producto 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="ibox-title">
+                            <h5 class="text-navy">Amortización Tradicional</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Tipo
+                                        Amortización</label>
+                                    <div class="col-lg-1" style="margin-top: 6px;">
+                                        <div class="i-checks"><label> <input type="radio" checked="" value="NORMAL"
+                                                                             name="tipoamortizacion"/> <i></i> Normal
+                                        </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Clase
+                                        Amortización</label>
+                                    <div class="col-lg-1" style="margin-top: 6px;">
+                                        <div class="i-checks"><label> <input type="radio" checked="" value="NORMAL"
+                                                                             name="claseamortizacion"/> <i></i> Normal
+                                        </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1" style="margin-top: 6px;">
+                                        <div class="i-checks"><label> <input type="radio" value="REFINANCIADO"
+                                                                             name="claseamortizacion"/>
+                                            <i></i> Refinanciado </label></div>
+                                    </div>
+                                    <div class="col-lg-1" style="margin-top: 6px;">
+                                        <div class="i-checks"><label> <input type="radio" value="CANCELACION"
+                                                                             name="claseamortizacion"/>
+                                            <i></i> Cancelación </label></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Monto
+                                        Solicitado</label>
+                                    <div class="col-lg-4">
+                                        <input type="text" id="montosolicitado" class="form-control campoHabilitable"
+                                               placeholder="Monto"/>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <input type="text" id="monedasolicitado" class="form-control campoHabilitable"
+                                               placeholder="Gs"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Primer
+                                        Vencimiento</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" id="primervencimiento" placeholder="dd/mm/aaaa"
+                                               class="form-control campoHabilitable"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Sistema
+                                        Amortización</label>
+                                    <div class="col-lg-4">
+                                        <select data-placeholder="Seleccione" id="selectSistema" class="chosen-select"
+                                                tabindex="2">
+                                            <option selected="selected" value="1">Sistema 1</option>
+                                            <option value="2">Sistema 2</option>
+                                            <option value="3">Sistema 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Cantidad
+                                        Cuotas</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" id="cantidadcuotas" class="form-control campoHabilitable"
+                                               placeholder="Cant"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Plazo</label>
+                                    <div class="col-lg-4">
+                                        <select data-placeholder="Seleccione" id="selectPlazo" class="chosen-select"
+                                                tabindex="2">
+                                            <option selected="selected" value="1">Plazo 1</option>
+                                            <option value="2">Plazo 2</option>
+                                            <option value="3">Plazo 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Tasa interés anual</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" id="tasaanual" class="form-control campoHabilitable"
+                                               placeholder="Tasa"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Tasa IVA %</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" id="tasaiva" class="form-control campoHabilitable"
+                                               placeholder="Tasa"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div th:replace="fragments/footer :: footer">&nbsp;</div>
+    </div>
+</div>
+
+<!-- Mainly scripts -->
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="js/inspinia.js"></script>
+<script src="js/plugins/pace/pace.min.js"></script>
+<!--Plugins  -->
+<script src="js/plugins/blockUI/jquery.blockUI.js"></script>
+<script src="js/plugins/alertify/alertify.min.js"></script>
+<script src="js/plugins/sjcl/sjcl.js"></script>
+<script src="js/plugins/sweetalert/sweetalert.min.js"></script>
+<script src="js/plugins/dataTables/datatables.min.js"></script>
+<script src="js/plugins/iCheck/icheck.min.js"></script>
+<script src="js/plugins/select2/select2.full.min.js"></script>
+<script src="js/plugins/chosen/chosen.jquery.js"></script>
+<script src="js/plugins/alertify/alertify.min.js"></script>
+<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
+<!-- Archivos js  -->
+<script src="js/jquery.mask.js"></script>
+<script src="js/pages/commons.js"></script>
+<script src="js/pages/credito/registrar_solicitud.js"></script>
+</body>
+</html>

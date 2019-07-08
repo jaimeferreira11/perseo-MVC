@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Perseo | Artículos</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <link href="css/plugins/fullcalendar/fullcalendar.css" rel="stylesheet"/>
+    <link href="css/plugins/fullcalendar/fullcalendar.print.css" rel='stylesheet' media='print'/>
+    <link href="css/animate.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    <link rel="shortcut icon" href="img/favicon.png"/>
+    <link rel="stylesheet" href="js/plugins/alertify/css/alertify.css"/>
+    <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet"/>
+    <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet"/>
+    <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet"/>
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet"/>
+    <link href="css/plugins/select2/select2.min.css" rel="stylesheet"/>
+    <link href="css/plugins/chosen/bootstrap-chosen.css" rel="stylesheet"/>
+    <link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet"/>
+    <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet"/>
+    <style>
+        /* Ocultar la ultima columna de la tabla */
+		#tablaArticulos td:LAST-CHILD {
+			display: none;
+		}
+
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <!-- PANEL LATERAL DERECHO-->
+    <div th:replace="fragments/aside :: aside">&nbsp;</div>
+    <div id="page-wrapper" class="gray-bg">
+        <!-- BARRA SUPERIOR  -->
+        <div th:replace="fragments/header :: header">&nbsp;</div>
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-sm-4">
+                <h2>Artículos</h2>
+                <ol class="breadcrumb">
+                    <li><a href="home">Inicio</a></li>
+                    <li class="active"><strong>Mantenimiento de Artículos</strong></li>
+                </ol>
+            </div>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <!-- El codigo va desde aqui -->
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <button type="button" class="btn btn-w-m btn-outline btn-primary" id="nuevo" onclick="nuevo()">
+                        <i class="fa fa-plus"></i> Nuevo
+                    </button>
+                    &nbsp;
+                    <button type="button" class="btn btn-w-m btn-outline btn-primary" id="buscar" onclick="buscar()">
+                        <i class="fa fa-search"></i> Buscar
+                    </button>
+                    &nbsp;
+                    <button type="button" class="btn btn-w-m btn-outline btn-success" id="grabar" onclick="grabar()"
+                            disabled="disabled"><i class="fa fa-check"></i> Grabar
+                    </button>
+                    &nbsp;
+                    <button type="button" class="btn btn-w-m btn-outline btn-danger" id="cancelar" onclick="cancelar()">
+                        <i class="fa fa-refresh"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5 class="text-navy">ABM Artículos</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <form class="form-horizontal">
+                                <div class="form-group" style="max-width: 40%;">
+                                    <div class="col-lg-6">
+                                        <label class="">ID Artículo</label>
+                                        <input type="text" placeholder="ID de Artículo" id="idarticulo" value="0"
+                                               class="form-control" disabled="disabled"/>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label class="">Estado</label>
+                                        <div class="i-checks">
+                                            <label>
+                                                <input class="campoHabilitable" type="checkbox" checked="checked"
+                                                       disabled="disabled" id="estado"/><i></i>
+                                                &nbsp;ACTIVO
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="max-width: 60%;">
+                                    <div class="col-lg-12">
+                                        <label>Descripción</label>
+                                        <input type="text" id="descripcion" placeholder="Descripción"
+                                               class="campoHabilitable form-control" disabled="disabled"/>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="max-width: 60%;">
+                                    <div class="col-lg-12">
+                                        <label>Código de Barra</label>
+                                        <input type="text" id="codigobarra" placeholder="Código"
+                                               class="campoHabilitable form-control" disabled="disabled"/>
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group" style="max-width: 60%;">
+                                    <div class="col-lg-12">
+                                        <label>Precio Costo</label>
+                                        <input type="text" id="preciocosto" placeholder="Precio Costo"
+                                               class="campoHabilitable form-control" disabled="disabled"/>
+                                    </div>
+                                </div> -->
+                                <div class="form-group" style="max-width: 35%;">
+                                    <div class="col-lg-12">
+                                        <label class="">Marca</label>
+                                        <select data-placeholder="Seleccione" id="selectMarca" class="chosen-select"
+                                                tabindex="2" disabled="disabled">
+                                            <option selected="selected" disabled="disabled">Seleccione</option>
+                                            <th:block th:each="listValue : ${marcas}">
+                                                <option th:value="${listValue.idmarca}"
+                                                        th:text="${listValue.descripcion}"></option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="max-width: 35%;">
+                                    <div class="col-lg-12">
+                                        <label class="">Familia</label>
+                                        <select data-placeholder="Seleccione" id="selectFamilia" class="chosen-select"
+                                                tabindex="2" disabled="disabled">
+                                            <option selected="selected" disabled="disabled">Seleccione</option>
+                                            <th:block th:each="listValue : ${familias}">
+                                                <option th:value="${listValue.idfamilia}"
+                                                        th:text="${listValue.descripcion}"></option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="max-width: 35%;">
+                                    <div class="col-lg-12">
+                                        <label class="">Linea de Articulo</label>
+                                        <select data-placeholder="Seleccione" id="selectLinea" class="chosen-select"
+                                                tabindex="2" disabled="disabled">
+                                            <option selected="selected" disabled="disabled">Seleccione</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="max-width: 35%;">
+                                    <div class="col-lg-12">
+                                        <label class="">Unidad de Medida</label>
+                                        <select data-placeholder="Seleccione" id="selectUnidad" class="chosen-select"
+                                                tabindex="2" disabled="disabled">
+                                            <option selected="selected" disabled="disabled">Seleccione</option>
+                                            <th:block th:each="listValue : ${unidades}">
+                                                <option th:value="${listValue.idunidadmedida}"
+                                                        th:text="${listValue.descripcion}"></option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="max-width: 15%;">
+                                    <div class="col-lg-12">
+                                        <label class="">Tipo Impuesto</label>
+                                        <select data-placeholder="Seleccione" id="selectImpuesto" class="chosen-select"
+                                                tabindex="2" disabled="disabled">
+                                            <option selected="selected" value="10">IVA 10%</option>
+                                            <option value="5">IVA 5%</option>
+                                            <option value="100">Exenta</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div th:replace="fragments/footer :: footer">&nbsp;</div>
+        <!-- SE AGREGA EL MODAL DEL BUSCADOR -->
+        <div th:replace="stock/articulo/buscador_articulo :: buscador_articulo">&nbsp;</div>
+    </div>
+</div>
+
+<!-- Mainly scripts -->
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="js/inspinia.js"></script>
+<script src="js/plugins/pace/pace.min.js"></script>
+<!--Plugins  -->
+<script src="js/plugins/blockUI/jquery.blockUI.js"></script>
+<script src="js/plugins/alertify/alertify.min.js"></script>
+<script src="js/plugins/sjcl/sjcl.js"></script>
+<script src="js/plugins/sweetalert/sweetalert.min.js"></script>
+<script src="js/plugins/dataTables/datatables.min.js"></script>
+<script src="js/plugins/iCheck/icheck.min.js"></script>
+<script src="js/plugins/select2/select2.full.min.js"></script>
+<script src="js/plugins/chosen/chosen.jquery.js"></script>
+<script src="js/plugins/alertify/alertify.min.js"></script>
+<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
+<!-- Archivos js  -->
+<script src="js/jquery.mask.js"></script>
+<script src="js/pages/commons.js"></script>
+<script src="js/pages/stock/mant_articulos.js"></script>
+<script src="js/pages/stock/buscador_articulo.js"></script>
+</body>
+</html>

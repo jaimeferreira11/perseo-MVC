@@ -1,0 +1,56 @@
+<div class="modal fade modal-ext" id="detalle_orden" role="dialog" th:fragment="detalle_orden"
+     aria-labelledby="myModalLabel" aria-hidden="true" tabindex="-1"
+     data-refresh="true" data-backdrop="static" data-keyboard="false" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <div class="modal-dialog" role="document"
+         style="width: 60% !important;">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+
+                <h4 class="modal-title" id="myModalLabel">Detalle de Orden</h4>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="tablaDetalleOrden">
+                                    <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Comprobante</th>
+                                        <th>Tipo</th>
+                                        <th>Importe Compra</th>
+                                        <th>Importe Orden</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="row">
+
+                    <div class="col-md-6 col-md-offset-1">
+
+
+                        &nbsp;
+                        <button type="button" class="btn btn-outline btn-danger" id="add_cancelar" data-dismiss="modal">
+                            <i
+                                    class="fa fa-window-close-o"></i> Cerrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--/.Content-->
+    </div>
+</div>

@@ -1,0 +1,135 @@
+<div class="modal fade modal-ext" id="agregar_articulo_deposito" role="dialog" th:fragment="agregar_articulo_deposito"
+     aria-labelledby="myModalLabel" aria-hidden="true" tabindex="-1"
+     data-refresh="true" data-backdrop="static" data-keyboard="false" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <div class="modal-dialog" role="document"
+         style="width: 60% !important;">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+
+                <h4 class="modal-title" id="myModalLabel">Agregar Articulo al Deposito</h4>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="box-body">
+                    <div class="row">
+                <div class="col-md-12">
+                   
+                            <form class="form-horizontal">
+                                <div class="form-group" >
+                                	<label class="col-lg-2 control-label">Articulo</label>
+                                    <div class="col-lg-2">
+              							<input type="text" id="idarticulodep" value="0" disabled="disabled" style="display: none;"/>
+                                        <input type="text" id="idarticulo" value="0"
+                                               class="form-control" disabled="disabled"/>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <input type="text"  id="codigo" value="0"
+                                               class="form-control" disabled="disabled"/>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input type="text" id="descripcion" placeholder="Descripción"
+                                               class="campoHabilitable form-control" disabled="disabled"/>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="i-checks">
+                                            <label>
+                                                <input class="" type="checkbox" checked="checked"
+                                                        id="estado"/><i></i>
+                                                &nbsp;ACTIVO
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" >
+                                	<label class="col-lg-2 control-label" >Cantidad Stock</label>
+                                    <div class="col-lg-4">
+              
+                                        <input type="text" placeholder="0.00" id="cantidads" value="0"
+                                               class="form-control numerico" disabled="disabled"/>
+                                    </div>
+
+                                </div>
+                                <div class="form-group" >
+                                	<label class="col-lg-2 control-label">Cantidad Min.</label>
+                                    <div class="col-lg-4">
+              
+                                        <input type="text" placeholder="ID de Artículo" id="cantidadm" value="0"
+                                               class="form-control numerico" disabled="disabled"/>
+                                    </div>
+
+                                </div>
+                                <div class="form-group" >
+                                	<label class="col-lg-2 control-label">Cantidad Bloq.</label>
+                                    <div class="col-lg-4">
+              
+                                        <input type="text" id="cantidadb" value="0"
+                                               class="form-control numerico" disabled="disabled" />
+                                    </div>
+
+                                </div>
+                                <div class="form-group" >
+                                	<label class="col-lg-2 control-label">Fecha Venc. Garantia</label>
+                                    <div class="col-lg-4">
+              
+                                        <input type="text" id="fecha"  placeholder="dd/mm/aaaa" class="form-control" data-mask="99/99/9999"
+                                                />
+                                    </div>
+
+                                </div>
+                                <div class="form-group" >
+                                	<label class="col-lg-2 control-label">Nro. Lote</label>
+                                    <div class="col-lg-4">
+              
+                                        <input type="text"  id="lote" value="0"
+                                               class="form-control numerico"/>
+                                    </div>
+
+                                </div>
+                               <div class="form-group" >
+                                	<label class="col-lg-2 control-label">Precio Costo</label>
+                                    <div class="col-lg-4">
+              
+                                        <input type="text" id="precioc" value="0" disabled="disabled"
+                                               class="form-control numerico" />
+                                    </div>
+
+                                </div>
+                                <!-- <div class="form-group" >
+                                	<label class="col-lg-2 control-label">Precio Venta</label>
+                                    <div class="col-lg-4">
+              
+                                        <input type="text" placeholder="ID de Artículo" id="preciov" value="0"
+                                               class="form-control numerico"/>
+                                    </div>
+
+                                </div> -->
+                            </form>
+                </div>
+            </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="row">
+
+                    <div class="col-md-6 col-md-offset-2">
+
+                        <button type="button" class="btn  btn-outline btn-success" id="add_aceptar" >
+                            <i class="fa fa-check"></i> Grabar
+                        </button>
+                       
+                        &nbsp;
+                        <button type="button" class="btn btn-outline btn-danger" id="add_cancelar" data-dismiss="modal"><i
+                                class="fa fa-window-close-o"></i> Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--/.Content-->
+    </div>
+</div>

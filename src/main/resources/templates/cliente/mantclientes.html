@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Perseo  | Clientes</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+	 <link href="css/plugins/fullcalendar/fullcalendar.css" rel="stylesheet"/>
+    <link href="css/plugins/fullcalendar/fullcalendar.print.css" rel='stylesheet' media='print'/>
+	<link href="css/animate.css" rel="stylesheet" />
+	<link href="css/style.css" rel="stylesheet" />
+	<link rel="shortcut icon" href="img/favicon.png"/>
+	<link rel="stylesheet" href="js/plugins/alertify/css/alertify.css"/>
+	<link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet"/>
+	<link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet" />
+ 	<link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet"/>
+ 	<link href="css/plugins/iCheck/custom.css" rel="stylesheet"/>
+ 	<link href="css/plugins/select2/select2.min.css" rel="stylesheet"/>
+  	<link href="css/plugins/chosen/bootstrap-chosen.css" rel="stylesheet"/>
+  	<link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet"/>
+	<link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet"/>
+
+
+    <style type="text/css">
+    	/* Ocultar a partir de la columna X de la tabla*/
+		#tabla td:nth-child(n+5) {
+			display: none;
+		}
+		/* Ocultar la ultima columna de la tabla */
+		#tablaClientes td:LAST-CHILD {
+			display: none;
+		}
+
+    </style>
+
+
+</head>
+
+<body class="">
+
+	<div id="wrapper">
+		<!-- PANEL LATERAL DERECHO-->
+		<div th:replace="fragments/aside :: aside">&nbsp;</div>
+
+		<div id="page-wrapper" class="gray-bg">
+			<!-- BARRA SUPERIOR  -->
+			<div th:replace="fragments/header :: header">&nbsp;</div>
+
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-sm-4">
+					<h2 >Clientes</h2>
+					<ol class="breadcrumb">
+						<li><a href="home" >Inicio</a></li>
+						<li class="active"><strong> Mantenimiento de Clientes</strong></li>
+					</ol>
+				</div>
+			</div>
+
+			<div class="wrapper wrapper-content animated fadeInRight">
+				<!-- El codigo va desde aqui -->
+				<div class="row">
+					<div class="col-md-7 col-md-offset-3">
+
+                            <button type="button" class="btn btn-w-m btn-outline btn-primary" id="nuevo" onclick="nuevo()"><i class="fa fa-plus"></i> Nuevo</button>
+                            &nbsp;
+                            <button type="button" class="btn btn-w-m btn-outline btn-primary" id="buscar" onclick="buscar()"><i class="fa fa-search"></i> Buscar</button>
+                            &nbsp;
+                            <button type="button" class="btn btn-w-m btn-outline btn-success" id="grabar" onclick="grabar()" disabled="disabled"><i class="fa fa-check"></i> Grabar</button>
+                            &nbsp;
+                            <button type="button" class="btn btn-w-m btn-outline btn-danger" id="cancelar" onclick="cancelar()"> <i class="fa fa-refresh"></i> Cancelar</button>
+
+					</div>
+
+				</div>
+				<br/>
+				<div class="row">
+					<div class="col-md-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5 class="text-navy" > ABM Clientes</h5>
+
+                        </div>
+                        <div class="ibox-content">
+                            <form class="form-horizontal">
+
+                                <div class="form-group">
+                                	<label class="col-lg-2 control-label">Cliente NRO.</label>
+                                    <div class="col-lg-3">
+                                    	<input type="text" placeholder="ID del Cliente" id="id"  value="0"  class="form-control" disabled="disabled"/>
+                                    </div>
+                                    <label class="col-lg-1 control-label">Estado</label>
+                                    <div class="col-lg-4">
+                                        <div class="i-checks">
+                                        	<label> <input type="checkbox" id="estado" checked="checked"/><i></i> &nbsp; ACTIVO </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-lg-2 control-label">Tipo y Nro Documento *</label>
+                                	<div class="col-lg-2">
+                                	<select data-placeholder="Seleccione"  id="selectTipoDoc" class="form-control"  disabled="disabled">
+										<option value="CI">CI</option>
+										<option value="RUC">RUC</option>
+									</select>
+
+                                   </div>
+                                	<div class="col-lg-4">
+
+                                    	<input type="text" id="documento" placeholder="Numero de Documento" class="form-control" disabled="disabled"/>
+                                   </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-lg-2 control-label">Nombres y Apellidos*</label>
+                                	<div class="col-lg-8">
+                                    	<input type="text" id="nombres" placeholder="Nombres y Apellidos del Cliente" class="form-control" disabled="disabled"/>
+                                   </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-lg-2 control-label">Estado Civil</label>
+                                	<div class="col-lg-2">
+                                	<select data-placeholder="Seleccione"  id="selectEstadoCivil" class="form-control"  disabled="disabled">
+										<option value="SO">SOLTERO</option>
+										<option value="CA">CASADO</option>
+										<option value="DI">DIVORCIADO</option>
+										<option value="VI">VIUDO</option>
+									</select>
+
+                                   </div>
+                                	<div class="col-lg-2">
+                                		<div class="i-checks"><label> <input type="radio" checked="" value="M" name="sexo"/> <i></i> Masculino </label></div>
+                                   </div>
+                                   <div class="col-lg-2">
+                                  		 <div class="i-checks"><label> <input type="radio" value="F" name="sexo"/> <i></i> Femenino </label></div>
+                                   </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-lg-2 control-label">Sucursal *</label>
+                                	<div class="col-lg-4">
+                                	<select data-placeholder="Seleccione"  id="selectSucursal" class="chosen-select"  tabindex="2" disabled="disabled">
+										<option selected="selected" disabled="disabled">Seleccione</option>
+										<th:block th:each="listValue : ${sucursales}">
+		                                   	 <option th:value="${listValue.idsucursal}" th:text="${listValue.nombre}"></option>
+										</th:block>
+									</select>
+
+                                   </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-lg-2 control-label">Fecha Nacimiento *</label>
+                                	<div class="col-lg-8">
+                                    	<input type="text" id="fechanac" placeholder="dd/mm/aaaa" class="form-control" data-mask="99/99/9999" disabled="disabled"/>
+                                   </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-lg-2 control-label">Lugar Nacimiento</label>
+                                	<div class="col-lg-8">
+                                    	<input type="text" id="lugarnac" placeholder="Lugar de Nacimiento" class="form-control" disabled="disabled"/>
+                                   </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-lg-2 control-label">Direccion</label>
+                                	<div class="col-lg-8">
+                                    	<input type="text" id="direccion" placeholder="Direccion del Cliente" class="form-control" disabled="disabled"/>
+                                   </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-lg-2 control-label">Telefono Principal *</label>
+                                	<div class="col-lg-2">
+                                    	<input type="text" id="telefono" placeholder="(999)999-999" class="form-control" disabled="disabled"/>
+                                   </div>
+                                   <label class="col-lg-2 control-label">Tel. Alternativo 1</label>
+                                	<div class="col-lg-2">
+                                    	<input type="text" id="telefono1" placeholder="(999)999-999" class="form-control" disabled="disabled"/>
+                                   </div>
+                                   <label class="col-lg-2 control-label">Tel. Alternativo 2</label>
+                                	<div class="col-lg-2">
+                                    	<input type="text" id="telefono2" placeholder="(999)999-999" class="form-control" disabled="disabled"/>
+                                   </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-lg-2 control-label">Departamento *</label>
+                                	<div class="col-lg-4">
+                                	<select data-placeholder="Seleccione"  id="selectDpto" class="chosen-select"  tabindex="2" disabled="disabled">
+										<option selected="selected" disabled="disabled">Seleccione</option>
+										<th:block th:each="listValue : ${departamentos}">
+		                                   	 <option th:value="${listValue.iddepartamento}" th:text="${listValue.descripcion}"></option>
+										</th:block>
+									</select>
+
+                                   </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-lg-2 control-label">Ciudad *</label>
+                                	<div class="col-lg-4">
+                                	<select data-placeholder="Seleccione"  id="selectCiudad" class="chosen-select"  tabindex="2" disabled="disabled">
+										<option selected="selected" disabled="disabled">Seleccione</option>
+										<th:block th:each="listValue : ${ciudades}">
+		                                   	 <option th:value="${listValue.iddistrito}" th:text="${listValue.descripcion}"></option>
+										</th:block>
+									</select>
+
+                                   </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-lg-2 control-label">Barrio</label>
+                                	<div class="col-lg-4">
+                                	<select data-placeholder="Seleccione"  id="selectBarrio" class="chosen-select"  tabindex="2" disabled="disabled">
+										<option selected="selected" disabled="disabled">Seleccione</option>
+										<th:block th:each="listValue : ${barrios}">
+		                                   	 <option th:value="${listValue.idbarrio}" th:text="${listValue.descripcion}"></option>
+										</th:block>
+									</select>
+
+                                   </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-lg-2 control-label">Correo</label>
+                                	<div class="col-lg-8">
+                                    	<input type="text" id="correo" placeholder="Correo Electronico " class="form-control" disabled="disabled"/>
+                                   </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-lg-2 control-label">WEB</label>
+                                	<div class="col-lg-8">
+                                    	<input type="text" id="web" placeholder="Direccion Web del Cliente" class="form-control" disabled="disabled"/>
+                                   </div>
+                                </div>
+								<div class="form-group">
+									<label class="col-lg-2 control-label">Lista de precio *</label>
+									<div class="col-lg-4">
+										<select data-placeholder="Seleccione"  id="selectListaPrecio" class="chosen-select"  tabindex="2" disabled="disabled">
+											<option selected="selected" disabled="disabled">Seleccione</option>
+											<th:block th:each="listValue : ${listaprecio}">
+												<option th:value="${listValue.idarticuloprecioventacab}" th:text="${listValue.descripcion}"></option>
+											</th:block>
+										</select>
+									</div>
+								</div>
+                            </form>
+                             <span class="help-block m-b-none"> <strong>Observacion: </strong>Los campos con * son requeridos.</span>
+
+                        </div>
+                    </div>
+                </div>
+
+				</div>
+
+            </div>
+
+		<!-- FOOTER -->
+		<div th:replace="fragments/footer :: footer">&nbsp;</div>
+		<!-- SE AGREGA EL MODAL DEL BUSCADOR -->
+		<div th:replace="cliente/buscador_cliente :: buscador_cliente">&nbsp;</div>
+
+		</div>
+	</div>
+
+	<!-- Mainly scripts -->
+	<script src="js/jquery-3.1.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+	<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="js/inspinia.js"></script>
+	<script src="js/plugins/pace/pace.min.js"></script>
+	<!--Plugins  -->
+	<script src="js/plugins/blockUI/jquery.blockUI.js"></script>
+	<script src="js/plugins/alertify/alertify.min.js"></script>
+	<script src="js/plugins/sjcl/sjcl.js"></script>
+	<script src="js/plugins/sweetalert/sweetalert.min.js"></script>
+	<script src="js/plugins/dataTables/datatables.min.js"></script>
+	<script src="js/plugins/iCheck/icheck.min.js"></script>
+    <script src="js/plugins/select2/select2.full.min.js"></script>
+    <script src="js/plugins/chosen/chosen.jquery.js"></script>
+    <script src="js/plugins/alertify/alertify.min.js"></script>
+    <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    <script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
+    <script src="js/plugins/moment/moment.js"></script>
+    <!-- Archivos js  -->
+    <script src="js/pages/commons.js"></script>
+	<script src="js/pages/pojo.js"></script>
+	<script src="js/pages/cliente/mant_clientes.js"></script>
+	 <script src="js/pages/cliente/buscador_cliente.js"></script>
+
+
+</body>
+
+</html>

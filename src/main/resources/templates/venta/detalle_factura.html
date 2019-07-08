@@ -1,0 +1,61 @@
+<div class="modal fade modal-ext" id="detalle_factura" role="dialog" th:fragment="detalle_factura"
+     aria-labelledby="myModalLabel" aria-hidden="true" tabindex="-1"
+     data-refresh="true" data-backdrop="static" data-keyboard="false" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <div class="modal-dialog" role="document"
+         style="width: 70% !important;">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+
+                <h4 class="modal-title" id="myModalLabel">Detalle de la factura</h4>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="box-body">
+                    <div class="row">
+                <div class="col-md-12">
+                   <div class="table-responsive">
+                        <table class="table table-bordered" id="tablaDetalleFactura">
+                            <thead>
+                               <tr>
+                                 <th>Item</th>
+                                 <th style="min-width: 150px">Articulo</th>
+                                 <th>Precio Unit</th>
+                                 <th>Cantidad</th>
+                                 <th>Exenta</th>
+                                 <th>Gravada 5</th>
+                                 <th>Gravada 10</th>
+                                 <th>IVA 5%</th>
+                                 <th>IVA 10</th>
+                                 <th>Total</th>
+                               </tr>
+                             </thead>
+                       </table>
+                   </div>
+                            
+                </div>
+            </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="row">
+
+                    <div class="col-md-6 col-md-offset-1">
+
+
+                       
+                        &nbsp;
+                        <button type="button" class="btn btn-outline btn-danger" id="add_cancelar" data-dismiss="modal"><i
+                                class="fa fa-window-close-o"></i> Cerrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--/.Content-->
+    </div>
+</div>

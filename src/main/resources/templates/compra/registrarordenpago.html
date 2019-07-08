@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Perseo | Registrar Orden de Pago</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <link href="css/plugins/fullcalendar/fullcalendar.css" rel="stylesheet"/>
+    <link href="css/plugins/fullcalendar/fullcalendar.print.css" rel='stylesheet' media='print'/>
+    <link href="css/animate.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    <link rel="shortcut icon" href="img/favicon.png"/>
+    <link rel="stylesheet" href="js/plugins/alertify/css/alertify.css"/>
+    <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet"/>
+    <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet"/>
+    <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet"/>
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet"/>
+    <link href="css/plugins/select2/select2.min.css" rel="stylesheet"/>
+    <link href="css/plugins/chosen/bootstrap-chosen.css" rel="stylesheet"/>
+    <link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet"/>
+    <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet"/>
+     <link href="css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet"/>
+</head>
+<body>
+<div id="wrapper">
+    <!-- PANEL LATERAL DERECHO-->
+    <div th:replace="fragments/aside :: aside">&nbsp;</div>
+    <div id="page-wrapper" class="gray-bg">
+        <!-- BARRA SUPERIOR  -->
+        <div th:replace="fragments/header :: header">&nbsp;</div>
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-sm-4">
+                <h2>Registrar Orden de Pago</h2>
+                <ol class="breadcrumb">
+                    <li><a href="home">Inicio</a></li>
+                    <li class="active"><strong>Registrar Orden de Pago</strong></li>
+                </ol>
+            </div>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <!-- El codigo va desde aqui -->
+            <div class="row">
+                <div class="col-md-6 col-md-offset-4">
+                    <button type="button" class="btn btn-w-m btn-outline btn-success" id="grabar" onclick="grabar()"><i
+                            class="fa fa-check"></i> Generar Orden
+                    </button>
+                    &nbsp;
+                    <button type="button" class="btn btn-w-m btn-outline btn-danger" id="cancelar" onclick="cancelar()">
+                        <i class="fa fa-refresh"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5 class="text-navy">Filtros para búsqueda de compras</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Rango de
+                                        Fecha</label>
+                                    <div class="col-lg-4">
+                                        <input type="text" id="fecha" placeholder="dd/mm/aaaa - dd/mm/aaaa"
+                                               class="form-control campoHabilitable"/>
+                                    </div>
+                                    <!-- <div class="col-lg-2">
+                                        <input type="text" id="fechaFin" placeholder="dd/mm/aaaa"
+                                               class="form-control campoHabilitable"/>
+                                    </div> -->
+                                    <div class="col-lg-1" style="margin-top: 6px;">
+                                        <div class="i-checks"><label> <input type="checkbox" value="1"
+                                                                             checked="checked"
+                                                                             name="soloPendientes"/> <i></i> Solo
+                                            Pendientes
+                                        </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label"
+                                           style="text-align: left;">Proveedor</label>
+                                    <div class="col-lg-6">
+                                        <select data-placeholder="Seleccione una o varias opciones" id="selectProveedor"
+                                                multiple="multiple" class="chosen-select" tabindex="2">
+                                            <th:block th:each="listValue : ${proveedores}">
+                                                <option th:value="${listValue.idproveedor}"
+                                                        th:text="${listValue.descripcion}"></option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <button type="button" class="btn btn-w-m btn-outline btn-primary" id="buscar">
+                                            <i class="fa fa-search"></i> Buscar
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <h5 class="text-navy">Datos de la orden de pago</h5>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-lg-2 control-label"
+                                                       style="text-align: left;">Concepto</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" id="concepto" placeholder="Concepto"
+                                                           class="campoHabilitable form-control"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-2 control-label" style="text-align: left;">Retener
+                                                    IVA</label>
+                                                <div class="col-lg-1" style="margin-top: 6px;">
+                                                    <div class="i-checks"><label> <input type="checkbox" name="rt_iva"/>
+                                                        <i></i> Sí
+                                                    </label>
+                                                    </div>
+                                                </div>
+                                                <label class="col-lg-2 control-label">Importe Retenido</label>
+                                                <div class="col-lg-2">
+                                                    <input id="importe_rt" value="0" disabled="disabled"
+                                                           class="form-control campoHabilitable"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-2 control-label" style="text-align: left;">Total
+                                                    Importe</label>
+                                                <div class="col-lg-2">
+                                                    <input id="importe_total" value="0" disabled="disabled"
+                                                           class="form-control campoHabilitable"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-lg-12" style="margin-top: 10px;">
+                                                    <div class="ibox float-e-margins">
+                                                        <div class="ibox-content">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-bordered" id="tabla">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th style="text-align:center;"><input
+                                                                                type="checkbox" name="master_check"/>
+                                                                        </th>
+                                                                        <th>Proveedor</th>
+                                                                        <th>Fecha</th>
+                                                                        <th>Tipo</th>
+                                                                        <th>Nro Documento</th>
+                                                                        <th>Importe</th>
+                                                                        <th>A Pagar</th>
+                                                                        <th>Pagado</th>
+                                                                        <th>Saldo Actual</th>
+                                                                        <th>Usuario</th>
+                                                                        <th>Estado</th>
+                                                                        <th>Detalles</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody id="tabla_body">
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div th:replace="fragments/footer :: footer">&nbsp;</div>
+        <div th:replace="compra/detalle_compra :: detalle_compra">&nbsp;</div>
+    </div>
+</div>
+
+<!-- Mainly scripts -->
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="js/inspinia.js"></script>
+<script src="js/plugins/pace/pace.min.js"></script>
+<!--Plugins  -->
+<script src="js/plugins/blockUI/jquery.blockUI.js"></script>
+<script src="js/plugins/alertify/alertify.min.js"></script>
+<script src="js/plugins/sjcl/sjcl.js"></script>
+<script src="js/plugins/sweetalert/sweetalert.min.js"></script>
+<script src="js/plugins/dataTables/datatables.min.js"></script>
+<script src="js/plugins/iCheck/icheck.min.js"></script>
+<script src="js/plugins/select2/select2.full.min.js"></script>
+<script src="js/plugins/chosen/chosen.jquery.js"></script>
+<script src="js/plugins/alertify/alertify.min.js"></script>
+<script src="js/plugins/fullcalendar/moment.min.js"></script>
+<script src="js/plugins/daterangepicker/daterangepicker.js"></script>
+<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
+<!-- Archivos js  -->
+<script src="js/jquery.mask.js"></script>
+<script src="js/pages/commons.js"></script>
+<script src="js/pages/compra/registrar_ordenpago.js"></script>
+</body>
+</html>

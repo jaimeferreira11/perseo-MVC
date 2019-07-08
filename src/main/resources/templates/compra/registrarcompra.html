@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Perseo | Registro de Compra</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <link href="css/plugins/fullcalendar/fullcalendar.css" rel="stylesheet"/>
+    <link href="css/plugins/fullcalendar/fullcalendar.print.css" rel='stylesheet' media='print'/>
+    <link href="css/animate.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    <link rel="shortcut icon" href="img/favicon.png"/>
+    <link rel="stylesheet" href="js/plugins/alertify/css/alertify.css"/>
+    <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet"/>
+    <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet"/>
+    <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet"/>
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet"/>
+    <link href="css/plugins/select2/select2.min.css" rel="stylesheet"/>
+    <link href="css/plugins/chosen/bootstrap-chosen.css" rel="stylesheet"/>
+    <link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet"/>
+    <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet"/>
+
+    <style>
+    	 /* Ocultar la ultima columna de la tabla */
+		#tablaArticulos td:LAST-CHILD {
+			display: none;
+		}
+    	
+    
+
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <!-- PANEL LATERAL DERECHO-->
+    <div th:replace="fragments/aside :: aside">&nbsp;</div>
+    <div id="page-wrapper" class="gray-bg">
+        <!-- BARRA SUPERIOR  -->
+        <div th:replace="fragments/header :: header">&nbsp;</div>
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-sm-4">
+                <h2>Registro de Compra</h2>
+                <ol class="breadcrumb">
+                    <li><a href="home">Inicio</a></li>
+                    <li class="active"><strong>Registro de Compra</strong></li>
+                </ol>
+            </div>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <!-- El codigo va desde aqui -->
+            <div class="row">
+                <div class="col-md-6 col-md-offset-4">
+                    <button type="button" class="btn btn-w-m btn-outline btn-success" id="grabar" onclick="grabar()"><i
+                            class="fa fa-check"></i> Grabar
+                    </button>
+                    &nbsp;
+                    <button type="button" class="btn btn-w-m btn-outline btn-danger" id="cancelar" onclick="cancelar()">
+                        <i class="fa fa-refresh"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5 class="text-navy">Datos de la Factura</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-lg-2">Proveedor</label>
+                                    <div class="col-lg-4">
+                                        <select data-placeholder="Seleccione" id="selectProveedor" class="chosen-select"
+                                                tabindex="2">
+                                            <option selected="selected" disabled="disabled">Seleccione</option>
+                                            <th:block th:each="listValue : ${proveedores}">
+                                                <option th:value="${listValue.idproveedor}"
+                                                        th:text="${listValue.descripcion}"></option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Condición de
+                                        Compra</label>
+                                    <div class="col-lg-1" style="margin-top: 6px;">
+                                        <div class="i-checks"><label> <input type="radio" checked="checked" value="CO"
+                                                                             name="condicion"/> <i></i> Contado </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1" style="margin-top: 6px;">
+                                        <div class="i-checks"><label> <input type="radio" value="CR" name="condicion"/>
+                                            <i></i> Crédito </label></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Documento</label>
+                                    <div class="col-lg-1" style="margin-top: 6px;">
+                                        <div class="i-checks"><label> <input type="radio" checked="checked" value="FA"
+                                                                             name="columna"/> <i></i> Factura </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1" style="margin-top: 6px;">
+                                        <div class="i-checks"><label> <input type="radio" value="RE"
+                                                                             name="columna"/> <i></i> Recibo </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="div_timbrado">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Nro.
+                                        Timbrado</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" placeholder="Nro. Timbrado" id="nrotimbrado"
+                                               class="form-control campoHabilitable"/>
+                                    </div>
+                                    <label class="col-lg-1 control-label">Vencimiento</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" placeholder="dd/mm/aaaa"
+                                               id="venctimbrado"
+                                               class="form-control campoHabilitable"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Fecha</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" id="fecha" placeholder="dd/mm/aaaa"
+                                               class="form-control campoHabilitable"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Nro. de
+                                        Comprobante</label>
+                                    <div class="col-lg-1" id="div_establecimiento">
+                                        <input type="text" id="establecimiento" class="form-control campoHabilitable"/>
+                                    </div>
+                                    <div class="col-lg-1" id="div_expedicion">
+                                        <input type="text" id="expedicion" class="form-control campoHabilitable"/>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <input type="text" id="nrocomprobante" class="form-control campoHabilitable"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label"
+                                           style="text-align: left;">Total Importe</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" id="total" class="form-control campoHabilitable"
+                                               disabled="disabled" value="0"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label"
+                                           style="text-align: left;">Gravadas 10%</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" id="gravada10" class="form-control campoHabilitable"
+                                               value="0" disabled="disabled"/>
+                                    </div>
+                                    <label class="col-lg-2 control-label"
+                                           style="text-align: left;">Gravadas 5%</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" id="gravada5" class="form-control campoHabilitable"
+                                               value="0" disabled="disabled"/>
+                                    </div>
+                                    <label class="col-lg-1 control-label"
+                                           style="text-align: left;">Exentas</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" id="exenta" class="form-control campoHabilitable" value="0"
+                                               disabled="disabled"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label"
+                                           style="text-align: left;">Importe IVA 10%</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" id="importe10" class="form-control campoHabilitable"
+                                               disabled="disabled" value="0"/>
+                                    </div>
+                                    <label class="col-lg-2 control-label"
+                                           style="text-align: left;">Importe IVA 5%</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" id="importe5" class="form-control campoHabilitable"
+                                               disabled="disabled" value="0"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label"
+                                           style="text-align: left;">Observaciones</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" id="observaciones" placeholder="Observaciones"
+                                               class="campoHabilitable form-control"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="ibox-title">
+                            <h5 class="text-navy">Detalles de la Factura</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Tipo de
+                                        Provisión</label>
+                                    <div class="col-lg-1" style="margin-top: 6px;">
+                                        <div class="i-checks"><label> <input type="radio" checked="checked" value="1"
+                                                                             name="tipoprovision"/> <i></i> Artículo
+                                        </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1" style="margin-top: 6px;">
+                                        <div class="i-checks"><label> <input type="radio" value="2"
+                                                                             name="tipoprovision"/>
+                                            <i></i> Servicio </label></div>
+                                    </div>
+
+
+                                    <div class="col-lg-2">
+                                        <button type="button" class="btn btn-w-m btn-outline btn-primary" id="agregar">
+                                            <i class="fa fa-plus"></i> Agregar
+                                        </button>
+                                    </div>
+                                    <label class="col-lg-1 control-label col-md-offset-3" style="text-align: left;">Subtotal</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" placeholder="Cantidad" id="subtotal" value="0"
+                                               class="form-control campoHabilitable totales" disabled="disabled"/>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group" id="divArticulo">
+
+                                    <label class="col-lg-2 control-label" style="text-align: left;">Buscar
+                                        Articulo</label>
+                                    <div class="col-lg-1">
+                                        <input type="text" id="idarticulo" placeholder="0" class="form-control"
+                                               disabled="disabled"/>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="input-group">
+                                            <input type="text" id="articulo" placeholder="Cod de barra o descripcion"
+                                                   class="form-control campoHabilitable"/>
+                                            <span class="input-group-btn">
+                                   		 <button type="button" class="btn btn-primary" onclick="buscarArticulo()"><i
+                                                 class="fa fa-search"></i></button>
+                                        </span>
+                                        </div>
+                                    </div>
+                                    <label class="col-lg-1 control-label" style="text-align: left;">Descripcion</label>
+                                    <div class="col-lg-5">
+                                        <input type="text" id="descripcion" placeholder="Descripcion"
+                                               class="form-control" disabled="disabled"/>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group" id="divServicio" style="display: none;">
+                                    <label class="col-lg-1 control-label"
+                                           style="text-align: left;">Concepto</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" id="concepto" placeholder="Concepto"
+                                               class="campoHabilitable form-control"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <label class="col-lg-1 control-label" style="text-align: left;">Cantidad</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" placeholder="Cantidad" id="cantidad" value="0"
+                                               class="form-control campoHabilitable"/>
+                                    </div>
+                                    <label class="col-lg-1 control-label" style="text-align: left;">P. Unit.</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" placeholder="Cantidad" id="punit" value="0"
+                                               class="form-control campoHabilitable"/>
+                                    </div>
+                                    <label class="col-lg-1 control-label" style="text-align: left;">Tipo
+                                        Impuesto</label>
+                                    <div class="col-lg-2">
+                                        <select data-placeholder="Seleccione" id="selectImpuesto" class="chosen-select"
+                                                tabindex="2">
+                                            <option selected="selected" value="10">IVA 10%</option>
+                                            <option value="5">IVA 5%</option>
+                                            <option value="100">Exenta</option>
+                                        </select>
+                                    </div>
+                                    <label class="col-lg-1 control-label" style="text-align: left;">Impuesto</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" placeholder="Cantidad" id="impuesto" value="0"
+                                               class="form-control campoHabilitable" disabled="disabled"/>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+
+
+                                    <div class="col-md-12" style=" margin-top: 10px;">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-content">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered" id="tabla">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Tipo</th>
+                                                            <th>Concepto</th>
+                                                            <th>Cantidad</th>
+                                                            <th>P. Unit.</th>
+                                                            <th>Exenta</th>
+                                                            <th>IVA 5%</th>
+                                                            <th>IVA 10%</th>
+                                                            <th>Total</th>
+                                                            <th>Acción</th>
+                                                            <th style="display: none;">tipoprovision</th>
+                                                            <th style="display: none;">tipoimpuesto</th>
+                                                            <th style="display: none;">idarticulo</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="tabla_body">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div th:replace="fragments/footer :: footer">&nbsp;</div>
+        <!-- SE AGREGA EL MODAL DEL BUSCADOR ARTICULOS DEPOSITO-->
+        <div th:replace="stock/articulo/buscador_articulo :: buscador_articulo">&nbsp;</div>
+    </div>
+</div>
+
+<!-- Mainly scripts -->
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="js/inspinia.js"></script>
+<script src="js/plugins/pace/pace.min.js"></script>
+<!--Plugins  -->
+<script src="js/plugins/blockUI/jquery.blockUI.js"></script>
+<script src="js/plugins/alertify/alertify.min.js"></script>
+<script src="js/plugins/sjcl/sjcl.js"></script>
+<script src="js/plugins/sweetalert/sweetalert.min.js"></script>
+<script src="js/plugins/dataTables/datatables.min.js"></script>
+<script src="js/plugins/iCheck/icheck.min.js"></script>
+<script src="js/plugins/select2/select2.full.min.js"></script>
+<script src="js/plugins/chosen/chosen.jquery.js"></script>
+<script src="js/plugins/alertify/alertify.min.js"></script>
+<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
+<!-- Archivos js  -->
+<script src="js/jquery.mask.js"></script>
+<script src="js/pages/commons.js"></script>
+<script src="js/pages/compra/registrar_compra.js"></script>
+<script src="js/pages/stock/buscador_articulo.js"></script>
+</body>
+</html>

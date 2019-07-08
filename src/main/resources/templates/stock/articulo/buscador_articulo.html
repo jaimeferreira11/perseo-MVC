@@ -1,0 +1,84 @@
+<div class="modal fade modal-ext" id="buscador_articulo" role="dialog" th:fragment="buscador_articulo"
+     aria-labelledby="myModalLabel" aria-hidden="true" tabindex="-1"
+     data-refresh="true" data-backdrop="static" data-keyboard="false" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <div class="modal-dialog" role="document"
+         style="width: 50% !important;">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+
+                <h4 class="modal-title" id="myModalLabel">Buscar Articulo</h4>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="box-body">
+                    <h4 class=" control-label text-navy">Buscar por:</h4>
+                    <div class="row">
+                        <div style="color: red" class="requerido">
+                            <label id="label"></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Descripción o Cod. barra</label>
+                            <div class="col-lg-7">
+                                <input type="text" id="bus_descripcion" placeholder="Buscar.." class="form-control"/>
+                            </div>
+                            <div class="col-lg-2">
+                                <button type="button" class="btn btn-outline btn-primary" id="bus_buscar">
+                                    <i class="fa fa-search"></i> Buscar
+                                </button>
+                            </div>
+                        </div>
+                        <br/><br/>
+                        <!-- <div class="form-group">
+                            <label class="col-lg-2 control-label">Código de Barra</label>
+                            <div class="col-lg-8">
+                                <input type="text" id="bus_codigobarra" placeholder="Buscar.." class="form-control"/>
+                            </div>
+                        </div> -->
+                       
+                    </div>
+                    <br/>
+                    <!-- /.box-header -->
+                    <div class="box-body table-responsive no-padding"
+                         style="overflow: auto; height: 180px;">
+
+                        <table class="table table-hover" id="tablaArticulos">
+                            <tr style="background-color: #a5d4ca;">
+                                <th id="select">Seleccionar</th>
+                                <th>Código de Barra</th>
+                                <th>Descripcion</th>
+                                <th>Estado</th>
+                                <td>object</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="row">
+
+                    <div class="col-md-6 col-md-offset-3">
+
+                        <button type="button" class="btn  btn-outline btn-success" id="bus_aceptar" disabled="disabled">
+                            <i class="fa fa-check"></i> Aceptar
+                        </button>
+                        &nbsp;
+                        <button type="button" class="btn  btn-outline btn-primary" id="bus_limpiar"><i
+                                class="fa fa-refresh"></i> Limpiar
+                        </button>
+                        &nbsp;
+                        <button type="button" class="btn btn-outline btn-danger" id="bus_cerrar" data-dismiss="modal"><i
+                                class="fa fa-window-close-o"></i> Cerrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--/.Content-->
+    </div>
+</div>

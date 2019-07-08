@@ -1,0 +1,50 @@
+
+<div class="modal fade modal-ext" id="modal" role="dialog"
+	th:fragment="modalPerfiles" aria-labelledby="myModalLabel" aria-hidden="true" tabindex="-1"
+	data-refresh="true" data-backdrop="static" data-keyboard="false">
+	
+	<div class="modal-dialog" role="document"
+		style="width: 40% !important;">
+		<!--Content-->
+		<div class="modal-content">
+			<!--Header-->
+			<div class="modal-header">
+
+				<h4 class="modal-title" id="myModalLabel">Mantenimiento de
+					Perfiles</h4>
+			</div>
+			<!--Body-->
+			<div class="modal-body">
+				<div class="box-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label>Descripción</label>
+							 <input type="text" id="ms_idperfil" class="form-control" style="display: none;" value="0" />
+							 <input type="text" placeholder="Descripcion" id="ms_descripcion" class="form-control"/>
+						</div>
+		
+						<br/>
+						<div>
+							
+							<label id="labelEstado"> <input type="checkbox"  id="ms_checkEstado"  class="i-checks" checked="checked"/>
+								 &nbsp;ACTIVO
+							</label>
+						</div>
+
+
+					</div>
+				</div>
+				</div>
+			</div>
+			<!--Footer-->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline btn-primary" id="mu_aceptar" onclick="guardar()">Aceptar</button>
+				<button type="button" class="btn btn-outline btn-danger pull-left" onclick="cerrar()"
+					data-dismiss="modal">Cancelar</button>
+
+			</div>
+		</div>
+		<!--/.Content-->
+	</div>
+</div>

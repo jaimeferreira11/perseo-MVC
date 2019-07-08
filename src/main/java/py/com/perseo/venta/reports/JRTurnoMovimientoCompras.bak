@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="JRTurnoMovimientoCompras"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="785"
+		 columnWidth="565"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="30"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+	<reportFont name="jSfi" isDefault="false" fontName="Dialog" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+
+	<style 
+		name="jSfi"
+		isDefault="true"
+		vAlign="Middle"
+		fontName="Dialog"
+		fontSize="7"
+		isBlankWhenNull="true"
+	>
+	</style>
+
+	<parameter name="sUsuario" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="sPrograma" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="sReporte" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="sEmpresa" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="dFechapedido" isForPrompting="false" class="java.util.Date"/>
+	<parameter name="sMarca" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="sCliente" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="sFormapago" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="sOficial" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="sMoneda" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="sTitulo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="nrocliente" isForPrompting="false" class="java.lang.Integer"/>
+	<parameter name="fechahora" isForPrompting="false" class="java.util.Date"/>
+	<parameter name="tipodoc" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="nrodoc" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="nombreyapellido" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="sexo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="fecnacimiento" isForPrompting="false" class="java.util.Date"/>
+	<parameter name="lugarnacimiento" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="nacionalidad" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="direccion" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="telefonoprincipal" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="telalternativo1" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="telalternativo2" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="correo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="web" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="departamento" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="distrito" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="barrio" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="fechaapertura" isForPrompting="false" class="java.sql.Timestamp"/>
+	<parameter name="integrantes" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="turno" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="fechacierre" isForPrompting="false" class="java.sql.Timestamp"/>
+
+	<field name="fecha" class="java.util.Date"/>
+	<field name="comprobante" class="java.lang.String"/>
+	<field name="cliente" class="java.lang.String"/>
+	<field name="importe" class="java.lang.Double"/>
+	<field name="litros" class="java.lang.Double"/>
+	<field name="tipo" class="java.lang.String"/>
+
+	<variable name="importe" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{importe}]]></variableExpression>
+	</variable>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="15"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						style="jSfi"
+						x="1"
+						y="0"
+						width="140"
+						height="15"
+						key="staticText-118"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Courier" size="7" isBold="false"/>
+					</textElement>
+				<text><![CDATA[MOVIMIENTO DE GASTOS / COMPRAS]]></text>
+				</staticText>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="16"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						style="jSfi"
+						x="0"
+						y="3"
+						width="43"
+						height="11"
+						key="staticText-93"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Courier" size="6" isBold="false"/>
+					</textElement>
+				<text><![CDATA[FECHA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="jSfi"
+						x="43"
+						y="3"
+						width="93"
+						height="11"
+						key="staticText-107"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Courier" size="6" isBold="false"/>
+					</textElement>
+				<text><![CDATA[COMPROBANTE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="jSfi"
+						x="291"
+						y="3"
+						width="65"
+						height="11"
+						key="staticText-108"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Courier" size="6" isBold="false"/>
+					</textElement>
+				<text><![CDATA[IMPORTE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						style="jSfi"
+						x="136"
+						y="3"
+						width="155"
+						height="11"
+						key="staticText-119"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Courier" size="6" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Proveedor]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						style="jSfi"
+						x="1"
+						y="1"
+						width="534"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						style="jSfi"
+						x="1"
+						y="1"
+						width="534"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						style="jSfi"
+						x="1"
+						y="15"
+						width="534"
+						height="0"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						style="jSfi"
+						x="1"
+						y="15"
+						width="534"
+						height="0"
+						key="line-4"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="16"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="jSfi"
+						x="0"
+						y="1"
+						width="43"
+						height="15"
+						key="textField-147"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="TlwgTypewriter" pdfFontName="Courier" size="10" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{fecha}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="jSfi"
+						x="43"
+						y="1"
+						width="93"
+						height="15"
+						key="textField-148"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="TlwgTypewriter" pdfFontName="Courier" size="10" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{comprobante}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="jSfi"
+						x="291"
+						y="1"
+						width="65"
+						height="15"
+						key="textField-152"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font fontName="TlwgTypewriter" pdfFontName="Courier" size="10" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{importe}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="jSfi"
+						x="136"
+						y="1"
+						width="155"
+						height="15"
+						key="textField-160"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="TlwgTypewriter" pdfFontName="Courier" size="10" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{cliente}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="19"  isSplitAllowed="true" >
+				<line direction="TopDown">
+					<reportElement
+						style="jSfi"
+						x="243"
+						y="2"
+						width="113"
+						height="0"
+						key="line-5"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						style="jSfi"
+						x="232"
+						y="2"
+						width="125"
+						height="0"
+						key="line-6"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="jSfi"
+						x="291"
+						y="4"
+						width="65"
+						height="15"
+						key="textField-161"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font fontName="TlwgTypewriter" pdfFontName="Courier" size="10" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{importe}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						style="jSfi"
+						x="232"
+						y="4"
+						width="59"
+						height="15"
+						key="staticText-120"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left">
+						<font fontName="TlwgTypewriter" pdfFontName="Courier" size="10" isBold="false"/>
+					</textElement>
+				<text><![CDATA[TOTAL]]></text>
+				</staticText>
+			</band>
+		</summary>
+</jasperReport>

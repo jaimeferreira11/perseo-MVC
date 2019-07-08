@@ -1,0 +1,178 @@
+<div class="modal fade modal-ext" id="forma_pago" role="dialog" th:fragment="forma_pago"
+     aria-labelledby="myModalLabel" aria-hidden="true" tabindex="-1"
+     data-refresh="true" data-backdrop="static" data-keyboard="false" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <div class="modal-dialog" role="document"
+         style="width: 70% !important;">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+
+                <h4 class="modal-title" id="myModalLabel">Forma de Pago</h4>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="col-md-7">
+                                <div class="ibox float-e-margins">
+                                    <form class="form-horizontal">
+
+                                        <div class="form-group">
+                                            <label class="col-lg-3">Importe</label>
+                                            <div class="col-lg-8">
+                                                <input type="text" id="fp_importe" value="0"
+                                                       class="form-control text-right"/>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="form-group">
+                                            <label class="col-lg-3 control-label" style="text-align: left;">Tipo</label>
+                                            <div class="col-lg-4" style="margin-top: 6px;">
+                                                <div class="i-checks"><label>
+                                                 <input type="radio" checked="checked" value="N"
+                                                                                     name="fp_tipo"/> <i></i> Normal </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4" style="margin-top: 6px;">
+                                                <div class="i-checks"><label> <input type="radio" value="DC" name="fp_tipo"/>
+                                                    <i></i> Debito en Cuenta </label></div>
+                                            </div>
+
+                                        </div> -->
+                                        <div class="form-group">
+                                            <label class="col-lg-3">Cuenta</label>
+                                            <div class="col-lg-8">
+                                                <select data-placeholder="Seleccione" id="fp_selectCajacuenta"
+                                                        class="chosen-select"
+                                                        tabindex="2">
+                                                    <option selected="selected" disabled="disabled">Seleccione</option>
+                                                    <th:block th:each="listValue : ${cajacuenta}">
+                                                        <option th:value="${listValue.tipo}+ '|' + ${listValue.idcajacuenta}"
+                                                                th:text="${listValue.descripcion}"></option>
+                                                    </th:block>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="form-group">
+                                            <label class="col-lg-3">Saldo</label>
+                                            <div class="col-lg-8">
+                                                <input type="text" id="fp_saldo" placeholder="0.00" class="form-control text-right" disabled="disabled"/>
+                                            </div>
+                                        </div> -->
+                                        <div class="form-group">
+                                            <label class="col-lg-3">Banco/Entidad</label>
+                                            <div class="col-lg-8">
+                                                <select data-placeholder="Seleccione" id="fp_selectBanco"
+                                                        class="chosen-select" disabled="disabled"
+                                                        tabindex="2">
+                                                    <option selected="selected" disabled="disabled">Seleccione</option>
+                                                    <th:block th:each="listValue : ${bancocuenta}">
+                                                        <option th:value="${listValue.idbanco}"
+                                                                th:text="${listValue.descripcion}"></option>
+                                                    </th:block>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-3">Cheque/Boleta</label>
+                                            <div class="col-lg-8">
+                                                <input type="text" id="fp_cheque" placeholder="" class="form-control"
+                                                       disabled="disabled"/>
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                                <div class="box">
+                                    <div class="box-header with-border"></div>
+                                    <div class="box-body no-padding">
+                                        <div class="box-body table-responsive no-padding"
+                                             style="overflow: auto; height: 200px;">
+                                            <table id="tablaFormaPago"
+                                                   class="table table-hover table-bordered">
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Cuenta</th>
+                                                    <th>Importe</th>
+                                                    <td>Cheque</td>
+                                                    <th style="width: 10px">Borrar</th>
+                                                    <td style="display: none;">idcuenta</td>
+                                                    <td style="display: none;">idBanco</td>
+                                                    <td style="display: none;">tipo</td> <!--E: efectivo, B:Banco  -->
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-content" style="background: rgba(128, 128, 128, 0.35)">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-lg-4 control-label"
+                                                       style="text-align: left;">Saldo</label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" value="0" id="fp_saldo"
+                                                           class="form-control text-right totales" disabled="disabled"/>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 control-label" style="text-align: left;">Total a
+                                                    Pagar</label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" value="0" id="fp_monto"
+                                                           class="form-control text-right totales" disabled="disabled"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-4 control-label" style="text-align: left;">Diferencia</label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" value="0" id="fp_diferencia"
+                                                           class="form-control text-right totales" disabled="disabled"/>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="row">
+
+                    <div class="col-md-6 col-md-offset-2">
+
+                        <button type="button" class="btn  btn-outline btn-success" id="fp_agregar" onclick="fp_add()">
+                            <i class="fa fa-check"></i> Agregar
+                        </button>
+
+                        <button type="button" class="btn  btn-outline btn-success" id="fp_grabar">
+                            <i class="fa fa-check"></i> Procesar Cobro
+                        </button>
+
+                        &nbsp;
+                        <button type="button" class="btn btn-outline btn-danger" id="fp_cancelar" data-dismiss="modal">
+                            <i
+                                    class="fa fa-window-close-o"></i> Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--/.Content-->
+    </div>
+</div>

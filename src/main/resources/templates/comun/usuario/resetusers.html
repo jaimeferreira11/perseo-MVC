@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	 <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Perseo | Usuarios</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <link href="css/plugins/fullcalendar/fullcalendar.css" rel="stylesheet"/>
+    <link href="css/plugins/fullcalendar/fullcalendar.print.css" rel='stylesheet' media='print'/>
+    <link href="css/animate.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    <link rel="shortcut icon" href="img/favicon.png"/>
+    <link rel="stylesheet" href="js/plugins/alertify/css/alertify.css"/>
+    <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet"/>
+    <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet"/>
+    <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet"/>
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet"/>
+    <link href="css/plugins/select2/select2.min.css" rel="stylesheet"/>
+    <link href="css/plugins/chosen/bootstrap-chosen.css" rel="stylesheet"/>
+    <link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet"/>
+</head>
+
+<body class="">
+
+	<div id="wrapper">
+
+		<!-- FOOTER -->
+			<div th:replace="fragments/aside :: aside">&nbsp;</div>
+
+		<div id="page-wrapper" class="gray-bg">
+			
+			<div th:replace="fragments/header :: header">&nbsp;</div>
+
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-sm-4">
+					<h2>Resetear Contraseñas</h2>
+					 <ol class="breadcrumb">
+						<li><a href="index.html">Inicio</a></li>
+						<li class="active"><strong>Resetear Contraseñas</strong></li>
+					</ol> 
+				</div>
+
+			</div>
+			<div class="wrapper wrapper-content animated fadeInRight">
+            	<div class="row">
+            		 <div class="col-lg-2"></div>
+            		 <div class="col-lg-6">
+            		 <div class="row animated bounceInDown" id="box">
+                    <div class="ibox float-e-margins ibox" id="ibox1">
+                        <div class="ibox-title">
+                            <h5 >Resetear Contraseñas</h5>
+                           
+                        </div>
+                        <div class="ibox-content">
+                        	<div class="sk-spinner sk-spinner-three-bounce">
+                                    <div class="sk-bounce1"></div>
+                                    <div class="sk-bounce2"></div>
+                                    <div class="sk-bounce3"></div>
+                                </div>
+                            <form class="form-horizontal">
+                                <p >Seleccione el usuario para cambiar el password</p>
+                                <br/>
+                                <div class="form-group"><label class="col-lg-2 control-label">Username</label>
+
+                                    <div class="col-lg-8">
+                                    <input type="text" id="idperfil" class="form-control" style="display: none;" th:value="${login.perfilactual.idperfil}" />
+	                                  <select class="form-control select2" id="selectUsuario" placeholder="Seleccione">
+	                                  	<option value="" disabled="" selected="">Selecione el Usuario</option>
+											
+											
+										</select>
+                                   <!--  <span class="help-block m-b-none">Example block-level help text here.</span> -->
+                                    </div>
+                                    
+                                </div>
+                                <br/>
+                                <div class="form-group"><label class="col-lg-2 control-label">Contraseña</label>
+
+                                    <div class="col-lg-8">
+                                   <input type="password" placeholder="Escriba la nueva ontraseña" id="pwd" class="form-control"/>
+                                    
+                                    </div>
+                                    
+                                </div>
+                                
+                                
+								<br/>
+                                <div class="form-group">
+                                    <div class=" col-lg-12">
+                                    <button type="button" class="btn btn-w-m btn-outline btn-danger" id="cancelar" onclick="cancelar()">
+					                        <i class="fa fa-refresh"></i> Cancelar
+					                    </button>
+					                   <button type="button" class="btn btn-w-m btn-outline btn-success pull-right"  onclick="resetpass()"
+					                            ><i class="fa fa-check"></i> Aceptar
+					                    </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            		
+            		
+            		
+            	</div>
+            </div>
+			
+			<div th:replace="fragments/modalPwd :: modalPwd">&nbsp;</div>
+			<!-- FOOTER -->
+			<div th:replace="fragments/footer :: footer">&nbsp;</div>
+
+		</div>
+	</div>
+
+	<!-- Mainly scripts -->
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="js/inspinia.js"></script>
+<script src="js/plugins/pace/pace.min.js"></script>
+<!--Plugins  -->
+<script src="js/plugins/blockUI/jquery.blockUI.js"></script>
+<script src="js/plugins/alertify/alertify.min.js"></script>
+<script src="js/plugins/sjcl/sjcl.js"></script>
+<script src="js/plugins/sweetalert/sweetalert.min.js"></script>
+<script src="js/plugins/dataTables/datatables.min.js"></script>
+<script src="js/plugins/iCheck/icheck.min.js"></script>
+<script src="js/plugins/select2/select2.full.min.js"></script>
+<script src="js/plugins/chosen/chosen.jquery.js"></script>
+<script src="js/plugins/alertify/alertify.min.js"></script>
+<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<!-- Archivos js  -->
+<script src="js/pages/commons.js"></script>
+<script src="js/pages/comun/usuario/reset_users.js"></script>
+
+</body>
+
+</html>
